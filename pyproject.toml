@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "preflight-agent"
+version = "1.0.0"
+description = "Scan your AI-agent setup before it runs: auto-run surfaces, inline secrets, dead hooks, agent collisions, skill sprawl — five auditors, one receipt."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Jasveer Singh" },
+]
+keywords = [
+    "ai-agents",
+    "claude-code",
+    "agent-skills",
+    "mcp",
+    "security",
+    "static-analysis",
+    "cli",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/jasveerai88/preflight-agent"
+Repository = "https://github.com/jasveerai88/preflight-agent"
+Issues = "https://github.com/jasveerai88/preflight-agent/issues"
+Changelog = "https://github.com/jasveerai88/preflight-agent/blob/main/CHANGELOG.md"
+
+[project.scripts]
+preflight-agent = "preflight_agent:main"
+
+# The suite is six standard-library modules in src/: the
+# preflight_agent dispatcher plus the five ported module
+# engines (clone_guard, secret_guard, hook_doctor,
+# fleet_audit, skill_sprawl), each installed as a top-level
+# module so the dispatcher can import them by name.
+# `python3 src/preflight_agent.py` keeps working from a
+# checkout.
+[tool.setuptools]
+package-dir = { "" = "src" }
+py-modules = ["preflight_agent", "clone_guard", "secret_guard", "hook_doctor", "fleet_audit", "skill_sprawl"]
