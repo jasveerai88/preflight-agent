@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.0.1 — 2026-11-07 (test-fixture fix; no engine change)
+
+- **Test-fixture fix:** the hook-doctor example scripts'
+  executable bit is not preserved through git, so the
+  tests now set it explicitly on their fixture copies.
+  No engine change — all five engines remain
+  byte-identical to their sources; found by the new
+  repo's own CI on day one.
+
 ## v1.0.0 — 2026-11-07 (first publication: the merge ships)
 
 - **The merge story, honestly.** This suite exists

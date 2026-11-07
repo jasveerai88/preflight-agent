@@ -30,7 +30,7 @@ preflight-agent skill-sprawl audit FOLDER [--json]
 (Install with `pipx install preflight-agent`; from a
 source checkout, prefix with
 `python3 src/preflight_agent.py`. Suite version
-1.0.0 — each module still reports its own source-tool
+1.0.1 — each module still reports its own source-tool
 version, v0.1.0, inside its sections and JSON.)
 
 - `scan` is the one-shot preflight: all five modules

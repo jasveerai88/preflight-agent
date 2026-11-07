@@ -5,7 +5,7 @@
 <p align="center">
   <img alt="tests: 300 passing" src="https://img.shields.io/badge/tests-300%20passing-brightgreen">
   <img alt="python 3.10 | 3.11 | 3.12" src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue">
-  <img alt="version 1.0.0" src="https://img.shields.io/badge/version-1.0.0-orange">
+  <img alt="version 1.0.1" src="https://img.shields.io/badge/version-1.0.1-orange">
   <img alt="dependencies: none" src="https://img.shields.io/badge/dependencies-0-brightgreen">
   <img alt="license: MIT" src="https://img.shields.io/badge/license-MIT-blue">
 </p>
@@ -68,7 +68,7 @@ pipx install preflight-agent           # or: pip install preflight-agent
 preflight-agent scan path/to/setup
 ```
 
-*(The PyPI name goes live when v1.0.0 is published; until
+*(The PyPI name goes live when v1.0.1 is published; until
 then use the git form —
 `pipx install git+https://github.com/jasveerai88/preflight-agent` —
 or a source checkout: `python3 src/preflight_agent.py scan <dir>`.)*
@@ -131,7 +131,7 @@ the real run (build it yourself and diff):
 $ python3 examples/make_fixture.py pf-fixture
 fixture built at pf-fixture
 $ preflight-agent scan pf-fixture
-preflight-agent v1.0.0 — scan · folder pf-fixture
+preflight-agent v1.0.1 — scan · folder pf-fixture
 5 module(s) run · 0 clean · 5 with findings · 0 skipped
 
 ===== clone-guard — what runs when this folder is opened =====
@@ -233,7 +233,7 @@ verbatim, module sections elided:
 
 ```
 $ preflight-agent scan pf-control
-preflight-agent v1.0.0 — scan · folder pf-control
+preflight-agent v1.0.1 — scan · folder pf-control
 5 module(s) run · 5 clean · 0 with findings · 0 skipped
 ...
 VERDICT: CLEAN — every module that ran reported clean. CLEAN covers only what the five modules check; it is not a guarantee the setup is safe. Each module's limits are in its own section above.

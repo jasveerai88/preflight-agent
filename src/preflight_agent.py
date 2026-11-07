@@ -54,7 +54,7 @@ import hook_doctor
 import secret_guard
 import skill_sprawl
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 TOOL = "preflight-agent"
 

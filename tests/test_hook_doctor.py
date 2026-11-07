@@ -44,6 +44,7 @@ that WOULD create a marker file if executed creates nothing.
 """
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -62,6 +63,34 @@ BROKEN = EXAMPLES / "broken-settings.json"
 CLEAN = EXAMPLES / "clean-settings.json"
 INVALID = EXAMPLES / "invalid-settings.json"
 
+_EXEC_HOME = None
+
+
+def fake_home():
+    """Exec-bit-safe copy of examples/fake-home, built once.
+
+    Git does not preserve the executable bit on the fixture
+    hook scripts (they are stored as mode 100644), so auditing
+    the bundled tree in place makes hook-doctor report extra
+    COMMAND_PATH "not executable" warnings on a fresh
+    checkout and the hand-counted expectations shift. A real
+    user's hooks directory has the bit set, so the fixture
+    tests audit a temp copy with it set explicitly (0o755 on
+    every *.sh and *.py under .claude/hooks). The bundled
+    tree itself is never modified.
+    """
+    global _EXEC_HOME
+    if _EXEC_HOME is None:
+        tmp = Path(tempfile.mkdtemp(prefix="hook-doctor-home-"))
+        dest = tmp / "fake-home"
+        shutil.copytree(FAKE_HOME, dest)
+        hooks_dir = dest / ".claude" / "hooks"
+        for pattern in ("*.sh", "*.py"):
+            for script in hooks_dir.glob(pattern):
+                script.chmod(0o755)
+        _EXEC_HOME = dest
+    return _EXEC_HOME
+
 
 def run_cli(*args):
     proc = subprocess.run(
@@ -70,7 +99,9 @@ def run_cli(*args):
     return proc.returncode, proc.stdout, proc.stderr
 
 
-def audit_dict(settings, home=FAKE_HOME):
+def audit_dict(settings, home=None):
+    if home is None:
+        home = fake_home()
     return hd.audit_settings(Path(settings), Path(home))
 
 
@@ -130,7 +161,7 @@ class TestFixtures(unittest.TestCase):
 
     def test_broken_fixture_cli_exit_1(self):
         code, out, _ = run_cli("audit", str(BROKEN), "--home",
-                               str(FAKE_HOME))
+                               str(fake_home()))
         self.assertEqual(code, 1)
         self.assertIn("Summary: 12 findings · 5 errors · "
                       "6 warnings · 1 info", out)
@@ -139,7 +170,7 @@ class TestFixtures(unittest.TestCase):
         audit = audit_dict(CLEAN)
         self.assertEqual(audit["findings"], [])
         code, out, _ = run_cli("audit", str(CLEAN), "--home",
-                               str(FAKE_HOME))
+                               str(fake_home()))
         self.assertEqual(code, 0)
         self.assertIn("Verdict: CLEAN", out)
 
@@ -151,7 +182,7 @@ class TestFixtures(unittest.TestCase):
         self.assertIn("column ", found[0]["message"])
         self.assertTrue(audit["parse_error"])
         code, _, _ = run_cli("audit", str(INVALID), "--home",
-                             str(FAKE_HOME))
+                             str(fake_home()))
         self.assertEqual(code, 1)
 
 
@@ -560,7 +591,7 @@ class TestReadOnly(unittest.TestCase):
 class TestJsonOutput(unittest.TestCase):
     def test_summary_recounts_against_findings(self):
         code, out, _ = run_cli("audit", str(BROKEN), "--home",
-                               str(FAKE_HOME), "--json")
+                               str(fake_home()), "--json")
         self.assertEqual(code, 1)
         data = json.loads(out)
         findings = data["findings"]
@@ -582,7 +613,7 @@ class TestJsonOutput(unittest.TestCase):
 
     def test_clean_fixture_json(self):
         code, out, _ = run_cli("audit", str(CLEAN), "--home",
-                               str(FAKE_HOME), "--json")
+                               str(fake_home()), "--json")
         self.assertEqual(code, 0)
         data = json.loads(out)
         self.assertEqual(data["findings"], [])
