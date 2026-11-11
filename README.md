@@ -398,3 +398,5 @@ history starts at the merge (see
 If preflight-agent catches something in your setup
 before it runs, consider
 [sponsoring](https://github.com/sponsors/jasveerai88).
+Sponsorship funds the time to maintain preflight-agent, ship
+fixes, and build the next checks its users ask for.
