@@ -1,0 +1,22 @@
+# CircleCI config for preflight-agent — v1
+# Mirrors .github/workflows/tests.yml 1:1, single Python version (3.12).
+# Later versions may add the 3.10/3.11/3.12 matrix; v1 proves the pipe.
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: pip install .
+      - run:
+          name: Run tests
+          command: python -m unittest discover -s tests -v
+
+workflows:
+  tests:
+    jobs:
+      - test
