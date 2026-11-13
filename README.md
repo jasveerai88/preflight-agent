@@ -68,10 +68,9 @@ pipx install preflight-agent           # or: pip install preflight-agent
 preflight-agent scan path/to/setup
 ```
 
-*(The PyPI name goes live when v1.0.1 is published; until
-then use the git form —
+*(Live on PyPI since v1.0.1. Source checkouts also work —
 `pipx install git+https://github.com/jasveerai88/preflight-agent` —
-or a source checkout: `python3 src/preflight_agent.py scan <dir>`.)*
+or run from source: `python3 src/preflight_agent.py scan <dir>`.)*
 
 One command, one receipt, an exit code you can gate on —
 **1** = at least one module has findings, **0** = every
