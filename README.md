@@ -5,7 +5,7 @@
 <p align="center">
   <img alt="tests: 300 passing" src="https://img.shields.io/badge/tests-300%20passing-brightgreen">
   <img alt="python 3.10 | 3.11 | 3.12" src="https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue">
-  <img alt="version 1.0.1" src="https://img.shields.io/badge/version-1.0.1-orange">
+  <img alt="version 1.0.2" src="https://img.shields.io/badge/version-1.0.2-orange">
   <img alt="dependencies: none" src="https://img.shields.io/badge/dependencies-0-brightgreen">
   <img alt="license: MIT" src="https://img.shields.io/badge/license-MIT-blue">
 </p>
@@ -33,6 +33,12 @@ intent. And the verdicts are honest about their edges: a
 module with nothing to audit reports **skipped with its
 reason**, never clean, and every module prints its own
 limits in its own section of the receipt.
+
+## Watch it run
+
+One `scan` of the fixture with exactly one planted problem per module — an auto-run `.envrc`, a literal key in `.mcp.json`, a guard hook pointing at a script that does not exist, a duplicated agent name, a duplicated skill name — five modules, five findings, one combined receipt (29 seconds, real run, nothing staged).
+
+![preflight-agent demo video: one scan of the planted-problem fixture, all five modules reporting in one receipt](https://github.com/jasveerai88/preflight-agent/raw/refs/heads/main/docs/preflight-agent-demo.mp4)
 
 ## The receipt family
 
@@ -302,6 +308,15 @@ the verdict vocabularies, the JSON contract and the
 limits — and makes preflight-agent itself installable
 as a skill: point your agent at this repo's SKILL.md
 and it will preflight setups before trusting them.
+
+**Install the skill bundle:** this repo also ships the
+same SKILL.md as an installable bundle under
+[skill/](skill/SKILL.md). To use it, copy the `skill/`
+folder's SKILL.md into your agent's skills directory
+(for Claude Code: `~/.claude/skills/preflight-agent/SKILL.md`),
+install the tool with `pipx install preflight-agent`,
+and your agent can then run a preflight scan before
+trusting any setup folder it is handed.
 
 ## Tests
 

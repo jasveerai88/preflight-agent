@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.2 — 2026-11-20 (documentation refresh; no behaviour change)
+
+- **1.0.2 — documentation refresh: PyPI description updated to the published-package text (pre-publish note removed); no behaviour change.**
+- Demo video added to the repo (docs/preflight-agent-demo.mp4) and linked from the README; the repo's SKILL.md is now also shipped as an installable skill bundle under skill/.
+
+
 ## v1.0.1 — 2026-11-07 (test-fixture fix; no engine change)
 
 - **Test-fixture fix:** the hook-doctor example scripts'
